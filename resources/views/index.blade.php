@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Vizu || HOME PAGE')
+@section('title', 'Hotspot || HOME PAGE')
 @section('main-content')
 
   <!-- Master Slider -->
@@ -7,7 +7,7 @@
     <!-- slide 1 -->
     <div class="ms-slide slide-1"  data-delay="150">
        <!-- slide background --> 
-       <img src="js/masterslider/style/blank.gif" data-src="https://cdn.motor1.com/images/mgl/3P33p/s1/gfg-style-2030.webp" alt="Slide1 background"  style="width:100!important;height:auto!important;" />
+       <img src="js/masterslider/style/blank.gif" data-src="{{ asset('images/banner-img.PNG') }}" alt="Slide1 background"  style="width:100!important;height:auto!important;" />
        <!-- slide thumbnail Image -->
        <div class="ms-overlay-layers"></div>
        {{-- <img src="js/masterslider/style/blank.gif" data-src="https://cdn.motor1.com/images/mgl/3P33p/s1/gfg-style-2030.webp" alt="Master Slider"
@@ -140,7 +140,7 @@
                             <div class="search-form-inner pull-left">
                                <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                   <div class="form-group">
-                                     <label>Select Manufacturers</label>
+                                     <label>Manufacturers</label>
                                      <select class=" form-control make">
                                         <option label="Any Make"></option>
                                         <option>Toyota</option>
@@ -156,11 +156,11 @@
                                      <label>Model</label>
                                      <select class=" form-control make">
                                         <option label="Any Make"></option>
-                                        <option>Toyota</option>
-                                        <option>Ford </option>
-                                        <option>Honda </option>
-                                        <option>Nissan </option>
-                                        <option>Mercedes Benz </option>
+                                        <option>Camry</option>
+                                        <option>Land Cruiser </option>
+                                        <option>Hilux </option>
+                                        <option>Innova Crysta </option>
+                                        <option>Vellfire </option>
                                      </select>
                                   </div>
                                </div>

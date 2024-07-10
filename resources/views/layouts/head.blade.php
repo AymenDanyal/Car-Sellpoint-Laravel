@@ -9,7 +9,7 @@
 <meta name="author" content="ScriptsBundle">
 <title>Carspot | Car Dealership - Vehicle Marketplace And Car Services</title>
 <!-- =-=-=-=-=-=-= Favicons Icon =-=-=-=-=-=-= -->
-<link rel="icon" href=" {{asset('images/favicon.ico')}}" type="image/x-icon" />
+<link rel="icon" href=" {{asset('images/hotspot-logo.png')}}" type="image/x-icon" />
 <!-- =-=-=-=-=-=-= Mobile Specific =-=-=-=-=-=-= -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <!-- =-=-=-=-=-=-= Bootstrap CSS Style =-=-=-=-=-=-= -->

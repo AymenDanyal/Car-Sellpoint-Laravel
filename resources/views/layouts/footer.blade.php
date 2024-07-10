@@ -7,7 +7,7 @@
 				<div class="col-md-3  col-sm-6 col-xs-12">
 					<!-- Info Widget -->
 					<div class="widget">
-						<div class="logo"> <img alt="" src="https://hotspotfin.com/public/web/assets/img/logo/black.svg"> </div>
+						<div class="logo"> <img alt="" src=" {{asset('images/hotspot-logo.png')}}"> </div>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et dolor eget erat
 							fringilla port.</p>
 						<ul class="apps-donwloads">
@@ -61,9 +61,7 @@
 						</div>
 					</div>
 					<div class="copyright">
-						<p>© 2017 Carspot All rights reserved. Design by <a
-								href="http://themeforest.net/user/scriptsbundle/portfolio"
-								target="_blank">Scriptsbundle</a> </p>
+						<p>© 2024 Hotspot All rights reserved.</p>
 					</div>
 					<!-- Newslatter -->
 				</div>

@@ -334,8 +334,8 @@ Designed and Development by: ScriptsBundle
 		 dots: false,
          items: 5,
 		  autoplay:true,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
+          autoplayTimeout:2000,
+          autoplayHoverPause:true,
 		 responsive: {
             0: {
                 items: 2,

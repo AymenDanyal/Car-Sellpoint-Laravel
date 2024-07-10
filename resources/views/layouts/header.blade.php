@@ -35,14 +35,14 @@
                    <!-- menu logo -->
                    <ul class="menu-logo">
                       <li>
-                         <a href="index.html"><img src="https://hotspotfin.com/public/web/assets/img/logo/black.svg" alt="logo"> </a>
+                         <a href="index.html"><img src="{{asset('images/hotspot-logo.png')}}" alt="logo"> </a>
                       </li>
                    </ul>
                    <!-- menu links -->
                    <ul class="menu-links">
                       <!-- active class -->
                       <li>
-                         <a href="javascript:void(0)">Home <i class="fa fa-indicator"></i></a>
+                         <a href="/">Home <i class="fa fa-indicator"></i></a>
                          <!-- drop down multilevel  -->
                       </li>
                       <li>
@@ -55,98 +55,37 @@
                                <div class="grid-col-6">
                                   <h3>Brands</h3>
                                   <ul class="by-make list-inline">
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/5.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/2.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/3.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/4.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/5.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/6.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/7.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/8.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/9.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img src="images/brands/11.png" class="img-responsive" alt="Brand Image">
-                                        </a>
-                                     </li>
+                                    @php
+                                    $brands=DB::table('brands')->limit(9)->get()->toArray();
+                                    // dd($sub_cat_info);
+                                    @endphp
+                                    @foreach ($brands as $brand)
+                                    <li>
+                                       <a href="{{ route('listing', ['brandId' => $brand->id, 'bodyTypeId' =>0]) }}">
+                                          <img src="{{ asset($brand->image) }}" class="img-responsive" alt="Brand Image">
+                                       </a>
+                                    </li>
+                                    @endforeach
+                                     
                                   </ul>
                                </div>
-                               <div class="grid-col-4">
+                               <div class="grid-col-6">
                                   <h3>Body Type</h3>
                                   <ul class="list-inline by-category ">
+                                    @php
+                                    $body=DB::table('body_type')->limit(9)->get()->toArray();
+                                    // dd($sub_cat_info);
+                                    @endphp
+                                    @foreach ($body as $obj)
                                      <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/1.png">
-                                           Convertible
+                                        <a href="{{ route('listing', ['brandId' => 0, 'bodyTypeId' => $obj->id]) }}">
+                                           <img alt="{{ $obj->image }}" src="{{ asset($obj->image) }}">
+                                           {{ $obj->name }}
                                         </a>
                                      </li>
-                                     <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/2.png">
-                                           Coupe
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/3.png">
-                                           Sedan
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/4.png">
-                                           Van/Minivan
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/5.png">
-                                           Truck
-                                        </a>
-                                     </li>
-                                     <li>
-                                        <a href="#">
-                                           <img alt="Hybrid" src="images/bodytype/6.png">
-                                           Hybrid
-                                        </a>
-                                     </li>
-
+                                     @endforeach
+                                    
+                                     
                                   </ul>
                                </div>
                             </div>

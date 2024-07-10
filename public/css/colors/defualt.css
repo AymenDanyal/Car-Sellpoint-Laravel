@@ -132,7 +132,7 @@ fieldset[disabled] .btn-theme.active {
 	background: -webkit-linear-gradient(to left, #780206, #061161);
 	background: -webkit-gradient(linear, 0 0, 100% 0, from(#780206), to(#061161));
 	background: -o-linear-gradient(to left, #780206, #061161);
-	background: linear-gradient(to left, #780206, #061161);
+	background: linear-gradient(to left, #ca0c13, #680000);
 }
 .linear-overlay , .background-3::before {
 	background: rgba(120, 2, 6, 0.8);
