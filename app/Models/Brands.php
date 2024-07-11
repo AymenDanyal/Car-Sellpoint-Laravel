@@ -18,5 +18,9 @@ class Brands extends Model
     'created_at',
     'updated_at',
     ];
+    public function models()
+    {
+        return $this->hasMany(Model::class);
+    }
 
 }

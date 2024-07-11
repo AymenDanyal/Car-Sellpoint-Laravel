@@ -73,7 +73,7 @@
                                 <ul class="pagination ">
                                     <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
                                     <li><a href="#">1</a></li>
-                                   
+
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>
                                     <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
@@ -90,7 +90,7 @@
                         <div class="sidebar">
                             <!-- Panel group -->
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                <!-- Brands Panel -->
+                                <!-- Models Panel -->
                                 <div class="panel panel-default">
                                     <!-- Heading -->
                                     <div class="panel-heading" role="tab" id="headingTwo">
@@ -99,7 +99,7 @@
                                                 data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
                                                 aria-controls="collapseTwo">
                                                 <i class="more-less glyphicon glyphicon-plus"></i>
-                                                Brands
+                                                Models
                                             </a>
                                         </h4>
                                     </div>
@@ -112,15 +112,15 @@
                                                 <input id="searchInput" placeholder="Search by Car Name" type="text">
                                                 <button type="submit" id="search"><i class="fa fa-search"></i></button>
                                             </div>
-                                            <!-- Brands List -->
+                                            <!-- Models List -->
                                             <div class="skin-minimal">
                                                 <ul class="list">
-                                                    @foreach ($brands as $brand)
+                                                    @foreach ($models as $model)
                                                     <li>
-                                                        <input type="checkbox" class="brand-checkbox inputBox"
-                                                            data-id="{{ $brand->id }}"
-                                                            id="brand-checkbox-{{ $brand->id }}">
-                                                        <label for="brand-checkbox-{{ $brand->id }}">{{ $brand->name
+                                                        <input type="checkbox" class="model-checkbox inputBox"
+                                                            data-id="{{ $model->id }}"
+                                                            id="model-checkbox-{{ $model->id }}">
+                                                        <label for="model-checkbox-{{ $model->id }}">{{ $model->name
                                                             }}</label>
                                                     </li>
                                                     @endforeach
@@ -130,11 +130,11 @@
                                                 <a href=".html" data-toggle="modal" class="pull-right"><strong>View
                                                         All</strong></a>
                                             </div>
-                                            <!-- Brands List End -->
+                                            <!-- Models List End -->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Brands Panel End -->
+                                <!-- Models Panel End -->
                                 <!-- Condition Panel -->
                                 <div class="panel panel-default">
                                     <!-- Heading -->
@@ -155,12 +155,12 @@
                                             <div class="skin-minimal">
                                                 <ul class="list">
                                                     <li>
-                                                        <input tabindex="7" class="transmission inputBox" type="radio"
+                                                        <input tabindex="7" class="transmission inputRadio" type="radio"
                                                             data-id="auto" name="minimal-radio" checked>
                                                         <label for="automatic">Automatic</label>
                                                     </li>
                                                     <li>
-                                                        <input tabindex="8" class="transmission inputBox" type="radio"
+                                                        <input tabindex="8" class="transmission inputRadio" type="radio"
                                                             data-id="manual" name="minimal-radio">
                                                         <label for="manual">Manual</label>
                                                     </li>
@@ -189,9 +189,9 @@
                                         <div class="panel-body">
                                             <div class="skin-minimal">
                                                 <ul class="list">
-                                                    @foreach ($bodyType as $type)
+                                                    @foreach ($bodyTypes as $type)
                                                     <li>
-                                                        <input class="inputBox" type="radio" id="{{ $type->id }}"
+                                                        <input class="inputRadio" type="radio" id="{{ $type->id }}"
                                                             name="body-type-radio">
                                                         <label for="{{ $type->id }}">{{ $type->name }}</label>
                                                     </li>
@@ -215,136 +215,36 @@
                                     <!-- Content -->
                                     <div class="panel-collapse">
                                         <div class="panel-body recent-ads">
-                                            <!-- Ads -->
+                                            @foreach ($recentCars as $recent)
+                                                <!-- Ads -->
                                             <div class="recent-ads-list">
                                                 <div class="recent-ads-container">
                                                     <div class="recent-ads-list-image">
                                                         <a href="#" class="recent-ads-list-image-inner">
-                                                            <img src="{{ asset('images/posting/thumb-1.jpg') }}" alt="">
+                                                            <img src="{{ asset($recent->image) }}" alt="">
                                                         </a><!-- /.recent-ads-list-image-inner -->
                                                     </div>
                                                     <!-- /.recent-ads-list-image -->
                                                     <div class="recent-ads-list-content">
                                                         <h3 class="recent-ads-list-title">
-                                                            <a href="#">Audi Q5 2.0T quattro Premium </a>
+                                                            <a href="#">{{ $recent->title }} </a>
                                                         </h3>
                                                         <ul class="recent-ads-list-location">
-                                                            <li><a href="#">New York</a>,</li>
-                                                            <li><a href="#">Brooklyn</a></li>
+                                                            <li><a href="#">{{ $recent->description }}</a>,</li>
+                                                            <li><a href="#">{{ $recent->year }}</a></li>
                                                         </ul>
                                                         <div class="recent-ads-list-price">
-                                                            SAR 17,000
+                                                            {{ $recent->price }}SA
                                                         </div>
                                                         <!-- /.recent-ads-list-price -->
                                                     </div>
                                                     <!-- /.recent-ads-list-content -->
                                                 </div>
                                                 <!-- /.recent-ads-container -->
-                                            </div>
-                                            <!-- Ads -->
-                                            <div class="recent-ads-list">
-                                                <div class="recent-ads-container">
-                                                    <div class="recent-ads-list-image">
-                                                        <a href="#" class="recent-ads-list-image-inner">
-                                                            <img src="{{ asset('images/posting/thumb-2.jpg') }}" alt="">
-                                                        </a><!-- /.recent-ads-list-image-inner -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-image -->
-                                                    <div class="recent-ads-list-content">
-                                                        <h3 class="recent-ads-list-title">
-                                                            <a href="#">Honda Civic 2017 Sports Edition</a>
-                                                        </h3>
-                                                        <ul class="recent-ads-list-location">
-                                                            <li><a href="#">New York</a>,</li>
-                                                            <li><a href="#">Brooklyn</a></li>
-                                                        </ul>
-                                                        <div class="recent-ads-list-price">
-                                                            SAR 66,000
-                                                        </div>
-                                                        <!-- /.recent-ads-list-price -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-content -->
-                                                </div>
-                                                <!-- /.recent-ads-container -->
-                                            </div>
-                                            <!-- Ads -->
-                                            <div class="recent-ads-list">
-                                                <div class="recent-ads-container">
-                                                    <div class="recent-ads-list-image">
-                                                        <a href="#" class="recent-ads-list-image-inner">
-                                                            <img src="{{ asset('images/posting/thumb-3.jpg') }}" alt="">
-                                                        </a><!-- /.recent-ads-list-image-inner -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-image -->
-                                                    <div class="recent-ads-list-content">
-                                                        <h3 class="recent-ads-list-title">
-                                                            <a href="#">2014 Ford Shelby GT500 Coupe</a>
-                                                        </h3>
-                                                        <ul class="recent-ads-list-location">
-                                                            <li><a href="#">New York</a>,</li>
-                                                            <li><a href="#">Brooklyn</a></li>
-                                                        </ul>
-                                                        <div class="recent-ads-list-price">
-                                                            SAR 37,000
-                                                        </div>
-                                                        <!-- /.recent-ads-list-price -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-content -->
-                                                </div>
-                                                <!-- /.recent-ads-container -->
-                                            </div>
-                                            <!-- Ads -->
-                                            <div class="recent-ads-list">
-                                                <div class="recent-ads-container">
-                                                    <div class="recent-ads-list-image">
-                                                        <a href="#" class="recent-ads-list-image-inner">
-                                                            <img src="{{ asset('images/posting/thumb-4.jpg') }}" alt="">
-                                                        </a><!-- /.recent-ads-list-image-inner -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-image -->
-                                                    <div class="recent-ads-list-content">
-                                                        <h3 class="recent-ads-list-title">
-                                                            <a href="#">Lamborghini Gallardo 5.0 V10 2dr</a>
-                                                        </h3>
-                                                        <ul class="recent-ads-list-location">
-                                                            <li><a href="#">New York</a>,</li>
-                                                            <li><a href="#">Brooklyn</a></li>
-                                                        </ul>
-                                                        <div class="recent-ads-list-price">
-                                                            SAR 11,000
-                                                        </div>
-                                                        <!-- /.recent-ads-list-price -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-content -->
-                                                </div>
-                                                <!-- /.recent-ads-container -->
-                                            </div>
-                                            <!-- Ads -->
-                                            <div class="recent-ads-list">
-                                                <div class="recent-ads-container">
-                                                    <div class="recent-ads-list-image">
-                                                        <a href="#" class="recent-ads-list-image-inner">
-                                                            <img src="{{ asset('images/posting/thumb-5.jpg') }}" alt="">
-                                                        </a><!-- /.recent-ads-list-image-inner -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-image -->
-                                                    <div class="recent-ads-list-content">
-                                                        <h3 class="recent-ads-list-title">
-                                                            <a href="#">Porsche 911 Carrera 2017 </a>
-                                                        </h3>
-                                                        <ul class="recent-ads-list-location">
-                                                            <li><a href="#">New York</a>,</li>
-                                                            <li><a href="#">Brooklyn</a></li>
-                                                        </ul>
-                                                        <div class="recent-ads-list-price">
-                                                            SAR 20,000
-                                                        </div>
-                                                        <!-- /.recent-ads-list-price -->
-                                                    </div>
-                                                    <!-- /.recent-ads-list-content -->
-                                                </div>
-                                                <!-- /.recent-ads-container -->
-                                            </div>
+                                            </div> 
+                                            @endforeach
+                                           
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +265,7 @@
     </div>
     <!-- Main Content Area End -->
 
-    <!-- =-=-=-=-=-=-= More Brands Modal =-=-=-=-=-=-= -->
+    <!-- =-=-=-=-=-=-= More Models Modal =-=-=-=-=-=-= -->
     <div class="search-modal modal fade cat_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -379,13 +279,13 @@
                     <div class="search-block">
                         <div class="row">
                             <div class="col-md-12 col-xs-12 col-sm-12 popular-search">
-                                <label>Select Brands</label>
-                                <!-- Brands List -->
+                                <label>Select Models</label>
+                                <!-- Models List -->
                                 <div class="skin-minimal">
                                     <ul class="list">
                                         <li class="col-sm-4 col-xs-6">
                                             <input type="checkbox" id="r1">
-                                            <label for="r1">All Brands</label>
+                                            <label for="r1">All Models</label>
                                         </li>
                                         <li class="col-sm-4 col-xs-6">
                                             <input type="checkbox" id="r2">
@@ -417,7 +317,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- Brands List End -->
+                                <!-- Models List End -->
                             </div>
                         </div>
                     </div>
@@ -433,50 +333,52 @@
 
 @push('scripts')
 <script>
+    var modelId = null;
     var brandId = {{ $brandId }};
     var trans = null;
     var bodyType = {{ $bodyTypeId }};;
     var search = null;
     
-    //console.log(brandId,trans,bodyType);
+    //console.log(modelId,trans,bodyType);
     $(document).ready(function() {
-        function getProducts(brandIds,trans,bodyType,price) {
-            var brandIds = []; 
-                $('.brand-checkbox:checked').each(function() {
-                    brandIds.push($(this).data('id')); 
+        function getProducts(modelIds,trans,bodyType,price) {
+            var modelIds = []; 
+                $('.model-checkbox:checked').each(function() {
+                    modelIds.push($(this).data('id')); 
                 });
                 
                 trans =  $('.transmission:checked').data('id');
                 bodyType = $('input[name="body-type-radio"]:checked').attr('id');
-            $.ajax({
-                type: 'POST',
-                url: '/search',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "trans": trans,
-                    "bodyType":bodyType,
-                    "brandIds":brandIds,
-                    "search":search,
-                    },
-        
-                success: function (response) {
-                    // Handle success response
-                    $('.posts-masonry').empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '/search',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "brandId":brandId,
+                        "modelIds":modelIds,
+                        "trans": trans,
+                        "bodyType":bodyType,
+                        "search":search,
+                        },
+            
+                    success: function (response) {
+                        // Handle success response
+                        $('.posts-masonry').empty();
+                        
+                        createGrid(response);
                     
-                    createGrid(response);
-                
-                },
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                    // You can show an error message to the user
-                }
-            });        
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                        // You can show an error message to the user
+                    }
+                });        
         }
 
         function createGrid(response) {
             products = response.data;
-          // console.log(response);
+           //console.log(products.data);
             products.forEach(product => {
                 var grid = `
                     <div class="col-md-6 col-xs-12 col-sm-6">
@@ -522,12 +424,17 @@
                 $(grid).appendTo('.posts-masonry');
             });
         }
-    
+       
 
         $('.inputBox').on('ifChanged', function(event){
-            search = $('#search').val('');
-          //  console.log(search);
+             search = $('#search').val();
             getProducts();
+           
+        });
+        $('.inputRadio').on('ifChecked', function(event){
+             search = $('#search').val();
+            getProducts();
+           
         });
 
         $('#searchInput').on('change', function(event){
