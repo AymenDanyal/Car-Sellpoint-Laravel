@@ -91,7 +91,7 @@
                             </div>
                          </div>
                       </li>
-                      <li>
+                      {{-- <li>
                          <a href="javascript:void(0)">Service <i class="fa  fa-indicator"></i></a>
                       </li>
                       <li>
@@ -107,7 +107,7 @@
                       <li>
                          <a href="javascript:void(0)">Contact Us <i class="fa fa-indicator"></i></a>
                       
-                      </li>
+                      </li> --}}
                    </ul>
                   
                 </div>

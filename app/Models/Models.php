@@ -21,4 +21,8 @@ class Models extends Model
     {
         return $this->hasMany(Variants::class, 'model_id');
     }
+    public function brand()
+    {
+        return $this->belongsTo(Brands::class);
+    }
 }

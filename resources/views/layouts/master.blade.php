@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="eng" >
 <head>
 	@include('layouts.head')	
 </head>
 <body class="js">
-	
-	
-	 <!-- =-=-=-=-=-=-= Preloader =-=-=-=-=-=-= -->
-	 <div class="preloader"></div>
-			
-
 	<!-- Header -->
 	@include('layouts.header')
 	<!--/ End Header -->
@@ -20,3 +14,16 @@
 
 </body>
 </html>	
+
+
+
+
+
+
+
+
+
+
+	 {{-- <!-- =-=-=-=-=-=-= Preloader =-=-=-=-=-=-= -->
+	 <div class="preloader"></div> --}}
+			

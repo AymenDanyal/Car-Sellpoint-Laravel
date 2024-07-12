@@ -5,24 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cars;
-use App\Models\Models;
-class Variants extends Model
+
+
+class Dealers extends Model
 {
     use HasFactory;
-    protected $table="variants";
-
+    protected $table="dealers";
     protected $fillable=
     [
+    'car_id',
+    'brand_id',
     'model_id',
-    'name',
-    'features',
-    'color',
     'created_at',
     'updated_at',
     ];
-  
-    public function brand()
+    public function cars()
     {
-        return $this->belongsTo(Brands::class, 'variant_id');
+        return $this->hasMany(Cars::class, 'dealer_id');
     }
 }

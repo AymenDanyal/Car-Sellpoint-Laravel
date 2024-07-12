@@ -8,12 +8,34 @@ use App\Models\Models;
 use App\Models\Variants;
 use App\Models\Cars;
 use App\Models\BodyType;
+use App\Models\CarValues;
+use App\Models\Images;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function index()
-    {
+     {
+
+
+        
+        $j = 1;
+        $k = 1;
+        $l = 1;
+        $m = 1;
+        
+        // for($i=3;$i<=94;$i++)
+        // {
+        //     for($j=1;$j<=6;$j++)
+        //     {
+        //         $variant = new Images();
+        //         $variant->car_id = $i;
+        //         $variant->url = '/images/single-page/'.$j.'.jpg';
+        //         $variant->save();
+        //     }
+        // }
+
+
         $featured = Cars::where('is_featured', 1)->limit(6)->get();
         $brands = Brands::limit(10)->get();
 
@@ -22,40 +44,68 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'boxId' => 'required|string',
-            'query' => 'required|string|min:3'
+            'query' => 'required|string|min:3',
         ]);
 
-        $boxId = $request->get('boxId');
         $query = $request->get('query');
-        $results = [];
 
-        switch ($boxId) {
-            case 'brand':
-                $results = Brands::where('name', 'LIKE', "%{$query}%")->get();
-                break;
-            case 'model1':
-                $results = Models::where('name', 'LIKE', "%{$query}%")->get();
-                break;
-            case 'variant':
-                $results = Variants::where('name', 'LIKE', "%{$query}%")->get();
-                break;
-            default:
-                return response()->json([
-                    'error' => 'Invalid boxId'
-                ], 400);
+        $brands = Brands::where('name', 'LIKE', "%{$query}%")
+            ->with(['models.variants'])
+            ->limit(5)
+            ->get();
+
+        $models = [];
+        $variants = [];
+
+        foreach ($brands as $brand) {
+            foreach ($brand->models as $model) {
+                $models[] = $model;
+                foreach ($model->variants as $variant) {
+                    $variants[] = $variant;
+                }
+            }
         }
 
         return response()->json([
-            'results' => $results,
-            'count' => count($results)
+            'brands' => $brands,
+            'models' => $models,
+            'variants' => $variants,
+            'brands_count' => $brands->count(),
+            'models_count' => count($models),
+            'variants_count' => count($variants),
         ]);
     }
     
     public function searchForm(Request $request)
     {
-        $brandId=null; 
-        $bodyTypeId=null;
+        
+        $request->validate([
+            'brand_id' => 'nullable',
+            'model_id' => 'nullable',
+            'variant_id' => 'nullable',
+        ]);
+    
+        $query = CarValues::query();
+    
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+    
+        if ($request->filled('model_id')) {
+            $query->where('model_id', $request->model_id);
+        }
+    
+        if ($request->filled('variant_id')) {
+            $query->where('variant_id', $request->variant_id);
+        }
+    
+        $carValues = $query->limit(10)->get(); 
+        
+        $cars= Cars::whereIn('id', $carValues->pluck('car_id'))->get();
+
+
+        $brandId=0; 
+        $bodyTypeId=0;
         $bodyTypes = BodyType::limit(10)->get();
         $recentCars = Cars::orderBy('id', 'DESC')->take(5)->get();
         $models = Models::where('brand_id', $brandId)
@@ -67,7 +117,7 @@ class HomeController extends Controller
        
 
                         
-        return view('pages.listing', compact('models', 'bodyTypes', 'brandId', 'bodyTypeId','recentCars'));
+        return view('pages.listing', compact('models', 'bodyTypes', 'brandId', 'bodyTypeId','recentCars','cars'));
     }
 }
 
@@ -79,45 +129,40 @@ class HomeController extends Controller
 
 
 
-        // $j = 1;
-        // $k = 1;
-        // $l = 1;
-        // $m = 1;
-        // for($i=1;$i<91;$i++)
-        // {
+    //     $j = 1;
+    //     $k = 1;
+    //     $l = 1;
+    //     $m = 1;
+    //     for($i=2;$i<=7;$i++)
+    //     {
+    //             $variant = new Images();
+    //             $variant->car_id = $i;
+    //             $variant->is_parent = 0;
+    //             $variant->parent_id = 2;
+    //             $variant->url = '/images/single-page/'.$j.'.jpg';
+    //             $variant->save();
+                
+                
+    //             $j++;
+    //             $k++;
+    //             $l++;
+    //             $m++;
+    //       if($j == 28){
+    //         $j = 1;
+    //       }
+    //       if($k == 5){
+    //         $k = 1;
+    //       }
+    //       if($l == 2){
+    //         $l = 1;
+    //       }
+    //       if($m == 9){
+    //         $m = 1;
+    //       }
+    //     }
 
-        //         // $variant = new Cars();
-        //         // $variant->id = $i+4;
-        //         // $variant->title = 'Car '.$i;
 
-        //         // $variant->engineCapacity = $i*10;
-        //         // $variant->engineType = $i % 2 == 0 ?  'Diesel':'Petrol';
-        //         // $variant->image = '/images/posting/'.$j.'.jpg';//1 28
-        //         // $variant->transmission = $i % 2 == 0 ?  'auto':'manual';;
-        //         // $variant->price = $i*1000;
-        //         // $variant->year = 2000+$i;
-        //         // $variant->body_type_id  = $k;
-        //         // $variant->dealer_id    = $l;
-        //         // $variant->brand_id  = $m;
-        //         // $variant->description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ';
-        //         // $variant->save();
-        //         // $j++;
-        //         // $k++;
-        //         // $l++;
-        //         // $m++;
-        //   if($j == 28){
-        //     $j = 1;
-        //   }
-        //   if($k == 5){
-        //     $k = 1;
-        //   }
-        //   if($l == 2){
-        //     $l = 1;
-        //   }
-        //   if($m == 9){
-        //     $m = 1;
-        //   }
-        // }
+
 
         // Retrieve all cars
         // $cars = Cars::all();

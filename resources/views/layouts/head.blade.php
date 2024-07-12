@@ -19,7 +19,7 @@
 <!-- =-=-=-=-=-=-= Font Awesome =-=-=-=-=-=-= -->
 <link rel="stylesheet" href=" {{asset('css/font-awesome.css')}}" type="text/css">
 <!-- =-=-=-=-=-=-= Flat Icon =-=-=-=-=-=-= -->
-<link href=" {{asset('css/flaticon.css" rel="stylesheet')}}">
+<link href="{{ asset('css/flaticon.css') }}" rel="stylesheet">
 <!-- =-=-=-=-=-=-= Et Line Fonts =-=-=-=-=-=-= -->
 <link rel="stylesheet" href=" {{asset('css/et-line-fonts.css')}}" type="text/css">
 <!-- =-=-=-=-=-=-= Menu Drop Down =-=-=-=-=-=-= -->
@@ -48,6 +48,5 @@
 <link rel="stylesheet" href=" {{asset('js/masterslider/style/masterslider.css')}}" />
 <link rel="stylesheet" href=" {{asset('js/masterslider/skins/default/style.css')}}" />
 <link rel="stylesheet" href=" {{asset('js/masterslider/style/style.css')}}" />
-<link href=" {{asset('https://fonts.googleapis.com/css?family=Poppins:400,500,600%7CSource+Sans+Pro:400,400i,600"
-    rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600%7CSource+Sans+Pro:400,400i,600" rel="stylesheet">
 <script src="js/modernizr.js"></script>

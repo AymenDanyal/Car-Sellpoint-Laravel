@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('title', 'Hotspot || HOME PAGE')
 @section('main-content')
-
 <!-- Master Slider -->
 <div class="master-slider ms-skin-default" id="masterslider">
    <!-- slide 1 -->
@@ -11,10 +10,6 @@
          style="width:100!important;height:auto!important;" />
       <!-- slide thumbnail Image -->
       <div class="ms-overlay-layers"></div>
-      {{-- <img src="js/masterslider/style/blank.gif"
-         data-src="https://cdn.motor1.com/images/mgl/3P33p/s1/gfg-style-2030.webp" alt="Master Slider"
-         style="left:750px; top:180px;" class="ms-layer" data-type="image" data-delay="1000" data-duration="3000"
-         data-ease="easeOutExpo" data-effect="scalefrom(1.1,1.1,190,0)" /> --}}
       <h3 class="ms-layer title4 font-white font-uppercase font-thin-xs" style="left:120px; top:150px;" data-type="text"
          data-delay="2000" data-duration="2000" data-ease="easeOutExpo" data-effect="skewleft(30,80)">Find Your Dream
          Car</h3>
@@ -35,7 +30,7 @@
       <!-- slide background -->
       <div class="ms-overlay-layers"></div>
       <img src="js/masterslider/style/blank.gif"
-         data-src="https://cdn.motor1.com/images/mgl/3P33p/s1/gfg-style-2030.webp" alt="Slide1 background" />
+         data-src="{{ asset('images/banner-img.PNG') }}" alt="Slide1 background" />
       <h3 class="ms-layer title4 font-white font-uppercase font-thin-xs" style="left:120px; top:150px;" data-type="text"
          data-delay="2000" data-duration="2000" data-ease="easeOutExpo" data-effect="skewleft(30,80)">Welcome to Carspot
       </h3>
@@ -55,7 +50,7 @@
       <div class="ms-overlay-layers"></div>
       <!-- slide background -->
       <img src="js/masterslider/style/blank.gif"
-         data-src="https://cdn.motor1.com/images/mgl/3P33p/s1/gfg-style-2030.webp" alt="Slide1 background" />
+         data-src="{{ asset('images/banner-img.PNG') }}" alt="Slide1 background" />
       <h3 class="ms-layer title4 font-white font-uppercase font-thin-xs" style="left:120px; top:150px;" data-type="text"
          data-delay="2000" data-duration="2000" data-ease="easeOutExpo" data-effect="skewleft(30,80)">Welcome to Carspot
       </h3>
@@ -90,24 +85,26 @@
                               <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
                                     <label>Brands</label>
-                                    <input type="text" name="brand" id="brand" class="form-control search" placeholder="Type to search...">
-                                    <ul  class="list-group suggestions brand"></ul>
+                                    <input type="text" id="brand" class="form-control search" placeholder="Type to search...">
+                                    <input name="brand_id" type="hidden" id="brand_id" value="">
+                                    <ul class="list-group suggestions"></ul>
                                  </div>
                               </div>
                               <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
-                                    <label>Model</label>
-                                    <input type="text" name="model" id="model" class="form-control search" placeholder="Type to search...">
-                                    <ul  class="list-group suggestions model1"></ul>
+                                     <label>Model</label>
+                                     <select class="form-control search" name="model_id" id="model" aria-label="Default select example">
+                                     </select>
                                  </div>
-                              </div>
-                              <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
+                             </div>
+                             <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
-                                    <label>Variant</label>
-                                    <input type="text" name="variant" id="variant" class="form-control search" placeholder="Type to search...">
-                                    <ul  class="list-group suggestions variant"></ul>
+                                     <label>Variant</label>
+                                     <select class="form-control search" name="variant_id" id="variant" aria-label="Default select example">
+                                         
+                                     </select>
                                  </div>
-                              </div>
+                             </div>
 
                            </div>
                            <div class="form-group pull-right">
@@ -145,46 +142,48 @@
                <div class="col-md-12 col-xs-12 col-sm-12">
                   <div class="posts-masonry">
                      @foreach ($featured as $car )
-                        <div class="col-md-4 col-xs-12 col-sm-6">
-                           <!-- Ad Box -->
-                           <div class="category-grid-box">
-                              <!-- Ad Img -->
-                              <div class="category-grid-img">
-                                 <img class="img-responsive" alt="" src="{{ asset($car->image) }}">
-                                 <!-- Ad Status -->
-                               
-                                 <!-- View Details --><a href="{{ route('listingDetails', $car->id) }}" class="view-details">View Details</a>
-                                 <!-- Additional Info -->
-                                 <div class="additional-information">
-                                    <p>Transmission : {{ $car->transmission }}</p>
-                                    <p>Engine Capacity : {{ $car->engineCapacity }} cc</p>
-                                    <p>Engine Type : {{ $car->engineType }}</p>
-                                 </div>
-                                 <!-- Additional Info End-->
+                     <div class="col-md-4 col-xs-12 col-sm-6">
+                        <!-- Ad Box -->
+                        <div class="category-grid-box">
+                           <!-- Ad Img -->
+                           <div class="category-grid-img">
+                              <img class="img-responsive" alt="" src="{{ asset($car->image) }}">
+                              <!-- Ad Status -->
+
+                              <!-- View Details --><a href="{{ route('listingDetails', $car->id) }}"
+                                 class="view-details">View Details</a>
+                              <!-- Additional Info -->
+                              <div class="additional-information">
+                                 <p>Transmission : {{ $car->transmission }}</p>
+                                 <p>Engine Capacity : {{ $car->engineCapacity }} cc</p>
+                                 <p>Engine Type : {{ $car->engineType }}</p>
                               </div>
-                              <!-- Ad Img End -->
-                              <div class="short-description">
-                                 {{-- <!-- Ad Category -->
-                                 <div class="category-title"> <span><a href="#">{{ $car->title }}</a></span> </div>
-                                 <!-- Ad Title --> --}}
-                                 <h3><a title="" href="single-page-listing.html">{{ $car->title }} </a></h3>
-                                 <!-- Price -->
-                                 <div class="price">SA {{ $car->price }} </div>
-                              </div>
-                              <!-- Addition Info -->
-                              <div class="ad-info">
-                                 <ul>
-                                    <li><i class="flaticon-fuel-1"></i>{{ $car->engineType }}</li>
-      
-                                    <li><i class="flaticon-engine-2"></i> {{ $car->engineCapacity }} cc</li>
-                                 </ul>
-                              </div>
+                              <!-- Additional Info End-->
                            </div>
-                           <!-- Ad Box End -->
+                           <!-- Ad Img End -->
+                           <div class="short-description">
+                              {{--
+                              <!-- Ad Category -->
+                              <div class="category-title"> <span><a href="#">{{ $car->title }}</a></span> </div>
+                              <!-- Ad Title --> --}}
+                              <h3><a title="" href="single-page-listing.html">{{ $car->title }} </a></h3>
+                              <!-- Price -->
+                              <div class="price">SA {{ $car->price }} </div>
+                           </div>
+                           <!-- Addition Info -->
+                           <div class="ad-info">
+                              <ul>
+                                 <li><i class="flaticon-fuel-1"></i>{{ $car->engineType }}</li>
+
+                                 <li><i class="flaticon-engine-2"></i> {{ $car->engineCapacity }} cc</li>
+                              </ul>
+                           </div>
                         </div>
+                        <!-- Ad Box End -->
+                     </div>
                      @endforeach
-                     
-         
+
+
                   </div>
                </div>
             </div>
@@ -299,225 +298,8 @@
       <!-- /.container -->
    </section>
    <!-- =-=-=-=-=-=-= Services Section End =-=-=-=-=-=-= -->
-   <!-- =-=-=-=-=-=-= Car Comparison =-=-=-=-=-=-= -->
-   <section class="section-padding gray">
-      <!-- Main Container -->
-      <div class="container">
-         <!-- Row -->
-         <div class="row">
-            <div class="clearfix"></div>
-            <!-- Heading Area -->
-            <div class="heading-panel">
-               <div class="col-xs-12 col-md-12 col-sm-12 text-center">
-                  <!-- Main Title -->
-                  <h1>Popular <span class="heading-color"> Car</span> Comparison</h1>
-                  <!-- Short Description -->
-                  <p class="heading-text">Eu delicata rationibus usu. Vix te putant utroque, ludus fabellas duo eu, his
-                     dico ut debet consectetuer.</p>
-               </div>
-            </div>
-            <!-- Middle Content Box -->
-            <div class="row">
-               <div class="col-md-12 col-xs-12 col-sm-12 text-center ">
-                  <ul class="compare-masonry">
-                     <li class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="comparison-box">
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class="">
-                                    <img src="images/compare/2.png" alt="" class="img-responsive" /></a>
-                                 <h2><a href="#">2016 Ford Escape cape </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="vsbox">vs</div>
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class=""><img src="images/compare/1.png" alt=""
-                                       class="img-responsive" /></a>
-                                 <h2><a href="#">2017 Chevrolet Camaro </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="clearfix"></div>
-                        </div>
-                     </li>
-                     <li class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="comparison-box">
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class="">
-                                    <img src="images/compare/3.png" alt="" class="img-responsive" /></a>
-                                 <h2><a href="#">2017 Chevrolet Corvette </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="vsbox">vs</div>
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class=""><img src="images/compare/4.png" alt=""
-                                       class="img-responsive" /></a>
-                                 <h2><a href="#">2017 Honda Accord Sedan </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="clearfix"></div>
-                        </div>
-                     </li>
-                     <li class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="comparison-box">
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class="">
-                                    <img src="images/compare/5.png" alt="" class="img-responsive" /></a>
-                                 <h2><a href="#">Mercedes-Benz C-Class </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="vsbox">vs</div>
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class=""><img src="images/compare/6.png" alt=""
-                                       class="img-responsive" /></a>
-                                 <h2><a href="#">2017 Honda CR-V </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="clearfix"></div>
-                        </div>
-                     </li>
-                     <li class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="comparison-box">
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class="">
-                                    <img src="images/compare/7.png" alt="" class="img-responsive" /></a>
-                                 <h2><a href="#">2016 Ford Mustang</a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <span
-                                       class="rating-count">(3)</span>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="vsbox">vs</div>
-                           <div class="col-md-6 col-sm-12 col-xs-12">
-                              <div class="compare-grid">
-                                 <a href="#" class=""><img src="images/compare/8.png" alt=""
-                                       class="img-responsive" /></a>
-                                 <h2><a href="#">2017 Toyota RAV4 </a></h2>
-                                 <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                       class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <span
-                                       class="rating-count">(3)</span>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="clearfix"></div>
-                        </div>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="text-center">
-               <div class="load-more-btn">
-                  <button class="btn btn-theme"> View All Comparisons <i class="fa fa-refresh"></i> </button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </section>
-   <!-- =-=-=-=-=-=-= Car Comparison End  =-=-=-=-=-=-= -->
-   <!-- =-=-=-=-=-=-= Expert Reviews Section =-=-=-=-=-=-= -->
-   <section class="news section-padding">
-      <div class="container">
-         <div class="row">
-            <div class="heading-panel">
-               <div class="col-xs-12 col-md-12 col-sm-12 left-side">
-                  <!-- Main Title -->
-                  <h1>Expert <span class="heading-color"> Reviews</span> Feedback</h1>
-                  <!-- Short Description -->
-                  <p class="heading-text">Eu delicata rationibus usu. Vix te putant utroque, ludus fabellas duo eu, his
-                     dico ut debet consectetuer.</p>
-               </div>
-            </div>
-            <div class="col-md-7 col-sm-12 col-xs-12">
-               <div class="mainimage">
-                  <a>
-                     <img alt="" class="img-responsive" src="images/blog/1.jpg">
-                     <div class="overlay">
-                        <h2>Eight Things You Should Know About The Mercedes-Benz E-Class LWB</h2>
-                     </div>
-                  </a>
-                  <div class="clearfix"></div>
-               </div>
-            </div>
-            <div class="col-md-5 col-sm-12 col-xs-12">
-               <div class="newslist">
-                  <ul>
-                     <li>
-                        <div class="imghold"> <a><img src="images/blog/s1.jpg" alt=""></a> </div>
-                        <div class="texthold">
-                           <h4><a>2017 Honda City: Which Variant Suits You? </a></h4>
-                           <p>With the 2017 facelifted avatar, the Honda City has significantly upped its game...&nbsp;
-                           </p>
-                        </div>
-                        <div class="clear"></div>
-                     </li>
-                     <li>
-                        <div class="imghold"> <a><img src="images/blog/s2.jpg" alt=""></a> </div>
-                        <div class="texthold">
-                           <h4><a>Honda City Facelift &ndash; Expected Prices </a></h4>
-                           <p>Honda will launch the City facelift in India on Feb 14, 2017 and it promises to...&nbsp;
-                           </p>
-                        </div>
-                        <div class="clear"></div>
-                     </li>
-                     <li>
-                        <div class="imghold"> <a><img src="images/blog/s3.jpg" alt=""></a> </div>
-                        <div class="texthold">
-                           <h4><a>Audi A4 Diesel Launched In India At Rs 40.20 Lakh </a></h4>
-                           <p>Audi India has launched a powerful diesel variant of its A4 sedan at Rs 40.20 la...&nbsp;
-                           </p>
-                        </div>
-                        <div class="clear"></div>
-                     </li>
-                     <li>
-                        <div class="imghold"> <a><img src="images/blog/s4.jpg" alt=""></a> </div>
-                        <div class="texthold">
-                           <h4><a>Audi A4 Diesel Launched In India At Rs 40.20 Lakh </a></h4>
-                           <p>Audi India has launched a powerful diesel variant of its A4 sedan at Rs 40.20 la...&nbsp;
-                           </p>
-                        </div>
-                        <div class="clear"></div>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-         <div class="clearfix"></div>
-      </div>
-   </section>
-   <!-- =-=-=-=-=-=-= Expert Reviews End =-=-=-=-=-=-= -->
+
+
    <!-- =-=-=-=-=-=-= App Download Section =-=-=-=-=-=-= -->
    <div class="app-download-section style-2">
       <!-- app-download-section-wrapper -->
@@ -807,12 +589,12 @@
             <div class="col-md-12 col-xs-12 col-sm-12">
                <div class="client-brand-list">
                   @foreach ($brands as $brand )
-                     <div class="sigle-clients-brand">
-                        <a href="#"><img src="{{ asset($brand->image) }}" alt=""></a>
-                     </div>   
+                  <div class="sigle-clients-brand">
+                     <a href="#"><img src="{{ asset($brand->image) }}" alt=""></a>
+                  </div>
                   @endforeach
-                  
-                  
+
+
                </div>
             </div>
          </div>
@@ -830,12 +612,12 @@
 @endpush
 
 @push('scripts')
+
 <script>
- $(document).ready(function() {
-    let boxId = null;
+   $(document).ready(function() {
+
     $('.search').on('keyup', function() {
         let query = $(this).val();
-        boxId = $(this).attr('id');
       
         if (query.length > 2) { // Trigger AJAX if input length is more than 2
             $.ajax({
@@ -843,30 +625,55 @@
                 type: 'GET',
                 data: { 
                   query: query,
-                  boxId: boxId,
                 },
                 success: function(data) {
-                  $('.suggestions.' + boxId).empty();
-                  console.log(data.results);
-
-                  if (data.results.length > 0) {
-                     $.each(data.results, function(key, value) {
-                           $('.suggestions.' + boxId).append('<li class="list-group-item">' + value.name + '</li>');
+                  console.log(data)
+                  
+                  $('.suggestions').empty();
+                  if (data.brands.length > 0) {
+                     $.each(data.brands, function(key, value) {
+                           $('.suggestions').append('<li class="list-group-item" data-id="' + value.id + '">' + value.name + '</li>');
                      });
                   } else {
-                     $('.suggestions.' + boxId).append('<li class="list-group-item">No suggestions found</li>');
+                     $('.suggestions').append('<li class="list-group-item">No suggestions found</li>');
                   }
+
+
+                  var modelSelect = $('#model');
+                  modelSelect.empty();
+                  modelSelect.append('<option selected>Type to search...</option>');
+                  $.each(data.models, function(index, model) {
+                     modelSelect.append($('<option>', {
+                           value: model.id,
+                           text: model.name
+                     }));
+                  });
+
+                  // Populate variants
+                  var variantSelect = $('#variant');
+                  variantSelect.empty();
+                  variantSelect.append('<option selected>Type to search...</option>');
+                  $.each(data.variants, function(index, variant) {
+                     variantSelect.append($('<option>', {
+                           value: variant.id,
+                           text: variant.name
+                     }));
+                  });
+
                }
 
             });
         } else {
-            $('.suggestions.' + boxId).empty();
+            $('.suggestions').empty();
         }
     });
 
     $(document).on('click', '.list-group-item', function() {
-        $('#' + boxId).val($(this).text());
-        $('.suggestions.' + boxId ).empty();
+        $('#brand').val($(this).text());
+        var id = $(this).attr('data-id');
+        $('#brand_id').val(id);
+        console.log(id);
+        $('.suggestions').empty();
     });
 
 });

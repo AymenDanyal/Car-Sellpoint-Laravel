@@ -9,20 +9,33 @@ use App\Models\Brands;
 use App\Models\Models;
 use App\Models\Variants;
 use App\Models\CarValues;
+use App\Models\Images;
 use App\Models\BodyType;
 
 class ProductController extends Controller
 {
     public function index($brandId, $bodyTypeId)
     {
+        if($bodyTypeId!=0){
+            $carIds=Cars::where('body_type_id', $bodyTypeId)->pluck('id');
+            $modelIds=CarValues::whereIn('car_id', $carIds)->pluck('model_id')->unique();
+            $models = Models::whereIn('id', $modelIds)->with(['variants' => function($query) {
+                $query->limit(10); 
+            }])
+            ->limit(10)
+            ->get(['id', 'name','brand_id']);
+            dd($models);
+        }else{
+            $models = Models::where('brand_id', $brandId)
+            ->with(['variants' => function($query) {
+                $query->limit(10); 
+            }])
+            ->limit(10)
+            ->get(['id', 'name','brand_id']);
+        }
         $bodyTypes = BodyType::limit(10)->get();
         $recentCars = Cars::orderBy('id', 'DESC')->take(5)->get();
-        $models = Models::where('brand_id', $brandId)
-                        ->with(['variants' => function($query) {
-                            $query->limit(10); 
-                        }])
-                        ->limit(10)
-                        ->get(['id', 'name','brand_id']);
+       
        
 
                         
@@ -89,12 +102,16 @@ class ProductController extends Controller
     }
     
     public function listingDetails($carId)
-    {
-        $carDeatils=Cars::find($carId)->toArray();
-        $carImages=Cars::find($carId)->toArray();
-        //dd($carDeatils);
+    {   
+        $carDetails = Cars::with('brand', 'images','dealer')->where('id', $carId)->first();
         
-        return view('.pages.listing-details', compact('carDeatils'));
+        if (!$carDetails) {
+            abort(404, 'Page Not Found');
+        }
+        $recentCars = Cars::orderBy('created_at','asc')->limit(3)->get();
+       
+        return view('pages.listing-details', compact('carDetails','recentCars'));
     }
+    
 }
 

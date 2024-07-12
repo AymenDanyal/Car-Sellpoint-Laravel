@@ -33,11 +33,11 @@
                     <div class="pricing-area">
                         <div class="col-md-9 col-xs-12 col-sm-8">
                             <div class="heading-zone">
-                                <h1>{{ $carDeatils['title'] }}</h1>
+                                <h1>{{ $carDetails['title'] }}</h1>
                                 <div class="short-history">
                                     <ul>
-                                        <li><b>{{ $carDeatils['year'] }}</b></li>
-                                        <li>Category: <b><a href="#">Land Rover </a></b></li>
+                                        <li><b>{{ $carDetails['year'] }}</b></li>
+                                        <li>Category: <b><a href="#">{{ $carDetails->brand['name'] }} </a></b></li>
                                     
                                     </ul>
                                 </div>
@@ -54,50 +54,41 @@
                             </div>
                             <div id="single-slider" class="flexslider">
                                 <ul class="slides">
-                                    <li>
-                                        <a href="{{ asset('images/single-page/1.jpg') }}" data-fancybox="group">
-                                            <img alt=""src="{{ asset('images/single-page/1.jpg') }}" />
-                                        </a>
-                                    </li>
-                                    <li><a href="{{ asset('images/single-page/2.jpg') }}" data-fancybox="group"><img alt=""
-                                                src="{{ asset('images/single-page/2.jpg') }}" /></a></li>
-                                    <li><a href="{{ asset('images/single-page/3.jpg') }}" data-fancybox="group"><img alt=""
-                                                src="{{ asset('images/single-page/3.jpg') }}" /></a></li>
-                                    <li><a href="{{ asset('images/single-page/4.jpg') }}" data-fancybox="group"><img alt=""
-                                                src="{{ asset('images/single-page/4.jpg') }}) }}" /></a></li>
-                                    <li><a href="{{ asset('images/single-page/5.jpg') }}" data-fancybox="group"><img alt=""
-                                                src="{{ asset('images/single-page/5.jpg') }}" /></a></li>
-                                    <li><a href="{{ asset('images/single-page/6.jpg') }}" data-fancybox="group"><img alt=""
-                                                src="{{ asset('images/single-page/6.jpg') }}" /></a></li>
+                                    @foreach ($carDetails->images as $image )
+                                        <li>
+                                            <a href="{{ asset($image->url) }}" data-fancybox="group">
+                                                <img alt=""src="{{ asset($image->url) }}" />
+                                            </a>
+                                        </li>    
+                                    @endforeach
+                                    
+                            
                                 </ul>
                             </div>
                             <div id="carousel" class="flexslider">
                                 <ul class="slides">
-                                    <li><img alt="" src="{{ asset('images/single-page/1_thumb.jpg') }}"></li>
-                                    <li><img alt="" src="{{ asset('images/single-page/2_thumb.jpg') }}"></li>
-                                    <li><img alt="" src="{{ asset('images/single-page/3_thumb.jpg') }}"> </li>
-                                    <li><img alt="" src="{{ asset('images/single-page/4_thumb.jpg') }}"></li>
-                                    <li><img alt="" src="{{ asset('images/single-page/5_thumb.jpg') }}"></li>
-                                    <li><img alt="" src="{{ asset('images/single-page/6_thumb.jpg') }}"></li>
+                                    @foreach ($carDetails->images as $image )
+                                        <li><img alt="" src="{{ asset($image->url) }}"></li>
+                                    @endforeach
                                 </ul>
                             </div>
                             <div class="key-features">
                                 <div class="boxicon">
                                     <i class="flaticon-gas-station-1 petrol"></i>
-                                    <p>{{ $carDeatils['engineType'] }}</p>
+                                    <p>{{ $carDetails['engineType'] }}</p>
                                 </div>
             
                                 <div class="boxicon">
                                     <i class="flaticon-tool engile-capacity"></i>
-                                    <p>{{ $carDeatils['engineCapacity'] }}cc</p>
+                                    <p>{{ $carDetails['engineCapacity'] }}cc</p>
                                 </div>
                                 <div class="boxicon">
                                     <i class="flaticon-calendar reg-year"></i>
-                                    <p>{{ $carDeatils['year'] }}</p>
+                                    <p>{{ $carDetails['year'] }}</p>
                                 </div>
                                 <div class="boxicon">
                                     <i class="flaticon-gearshift transmission"></i>
-                                    <p>{{ $carDeatils['transmission'] }}</p>
+                                    <p>{{ $carDetails['transmission'] }}</p>
                                 </div>
                                 <div class="boxicon">
                                     <i class="flaticon-transport-1 body-type"></i>
@@ -115,81 +106,26 @@
                                         </h3>
                                     </div>
                                     <p>
-                                        Bank Leased 5 Year plan 2013 Honda Civic 1.8 Vti Oriel Prosmatec Automatic ( New
-                                        Shape ) Attractive Silver Color 1 year installments paid Lahore Reg number Well
-                                        Maintained Insurance + tracker etc included Options: Sunroof
+                                        {{ $carDetails['description'] }}
                                     </p>
+                                    
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Condition</strong> :</span> Used
+                                        <span><strong>Title </strong> :</span> {{ $carDetails->brand['name'] }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Brand</strong> :</span> Nokia
+                                        <span><strong>Brand</strong> :</span> {{ $carDetails->brand['name'] }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Model</strong> :</span> Lumia 625
+                                        <span><strong>Engine Capacity</strong>:</span> {{ $carDetails['engineCapacity'] }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Product Type</strong>:</span> Mobile
+                                        <span><strong>transmission</strong> :</span>{{ $carDetails['transmission'] }}
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Date</strong> :</span> 2014-10-06
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-xs-12 no-padding">
-                                        <span><strong>Price</strong> :</span> Rs. 22,000
+                                        <span><strong>Engine Type</strong> :</span> {{ $carDetails['engineType'] }}
                                     </div>
                                 </div>
-                                <!-- Short Features  -->
-                                <div class="short-features">
-                                    <!-- Ad Specifications -->
-                                    <div class="specification">
-                                        <!-- Heading Area -->
-                                        <div class="heading-panel">
-                                            <h3 class="main-title text-left">
-                                                Specifications
-                                            </h3>
-                                        </div>
-                                        <p>
-                                            samsung galaxy note 2 new condition with handsfree and charger urgent sale.
-                                            with book pouch original 4g lte. 16 gb condition 10/10 andriod kitkat4.4.2
-                                        </p>
-                                        <p>
-                                            Bank Leased 5 Year plan 2013 Honda Civic 1.8 Vti Oriel Prosmatec Automatic (
-                                            New Shape ) Attractive Silver Color 1 year installments paid Lahore Reg
-                                            number Well Maintained Insurance + tracker etc included Options: Sunroof
-                                        </p>
-                                        <p>
-                                            Chilled AC Power Windows Power Steering ABS braking system ETC 15000 km
-                                            carefully driven No SMS / Email , Serious Buyers Requested To Call .
-                                        </p>
-
-                                    </div>
-                                    <!-- Related Image  -->
-                                    <div class="ad-related-img">
-                                        <img src="images/car-img1.png" alt="" class="img-responsive center-block">
-                                    </div>
-                                    <!-- Heading Area -->
-                                    <div class="heading-panel">
-                                        <h3 class="main-title text-left">
-                                            Car Features
-                                        </h3>
-                                    </div>
-                                    <!-- Car Key Features  -->
-                                    <ul class="car-feature-list ">
-                                        <li><i class="flaticon-antenna"></i> AM/FM Radio</li>
-                                        <li><i class="flaticon-air-conditioner-1"></i> Air Conditioning</li>
-                                        <li><i class="flaticon-cd"></i> Cassette Player</li>
-                                        <li><i class="flaticon-light-bulb"></i> Power Locks</li>
-                                        <li><i class="flaticon-rearview-mirror"></i> Power Mirrors</li>
-                                        <li><i class="flaticon-car-steering-wheel"></i> Power Steering</li>
-                                        <li><i class="flaticon-car-door"></i> Power Windows</li>
-                                        <li><i class="flaticon-disc-brake"></i> Anti-lock Braking</li>
-                                        <li><i class="flaticon-rim"></i> 19 Inch Alloy Wheels</li>
-                                        <li><i class="flaticon-message"></i> Cruise Control</li>
-                                        <li><i class="flaticon-airbag"></i> Front Airbag Package</li>
-                                        <li><i class="flaticon-photo-camera-1"></i> Reversing Camera</li>
-                                    </ul>
-                                </div>
-                                <!-- Short Features  -->
+                             
                                 <div class="clearfix"></div>
                             </div>
 
@@ -203,7 +139,7 @@
                                     <div class="panel-body">
                                         <div class="tab-content">
                                             <div class="tab-pane in active fade" id="tab3default">
-                                                <<iframe width="560" height="315" src="https://www.youtube.com/embed/mS_qBKRPxV0?si=EYx6nkgXLjWSyLFj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                                <iframe width="560" height="315" src="{{ $carDetails['video_url'] }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -212,30 +148,7 @@
                             <!-- Share Ad  -->
                         </div>
                         <!-- Single Ad End -->
-                        <!-- Price Alert -->
-                        <div class="alert-box-container margin-top-30">
-                            <div class="well">
-                                <h3>Create Alert</h3>
-                                <p>Receive emails for the latest ads matching your search criteria</p>
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-5 col-xs-12 col-sm-12">
-                                            <input placeholder="Enter Your Email " type="text" class="form-control">
-                                        </div>
-                                        <div class="col-md-4 col-xs-12 col-sm-12">
-                                            <select class="alerts">
-                                                <option value="1">Daily</option>
-                                                <option value="7">Weekly</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12 col-sm-12">
-                                            <input class="btn btn-theme btn-block" value="Submit" type="submit">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Price Alert End -->
+          
                     
                     </div>
                     <!-- Right Sidebar -->
@@ -243,40 +156,38 @@
                         <!-- Sidebar Widgets -->
                         <div class="sidebar">
                             <!-- Price info block -->
-                            <div class="category-list-icon">
-                                <i class="green flaticon-mail-1"></i>
-                                <div class="category-list-title">
-                                    <h5><a href="#" data-toggle="modal" data-target=".price-quote">Contact Seller Via
-                                            Email</a></h5>
-                                </div>
-                            </div>
-                            <div class="category-list-icon">
-                                <i class="purple flaticon-smartphone"></i>
-                                <div class="category-list-title">
-                                    <h5><a href="javascript:void(0)" class="number"
-                                            data-last="111111X">0320<span>XXXXXXX</span></a></h5>
-                                </div>
-                            </div>
-
-
+                            
                             <!-- User Info -->
                             <div class="white-bg user-contact-info">
                                 <div class="user-info-card">
                                     <div class="user-photo col-md-4 col-sm-3  col-xs-4">
-                                        <img class="img-circle" src="images/users/3.jpg" alt="">
+                                        <img class="img-circle" src="{{ $carDetails->dealer['image'] }}" alt="">
                                     </div>
                                     <div class="user-information  col-md-8 col-sm-9 col-xs-8">
-                                        <span class="user-name"><a class="hover-color" href="profile.html">Sonu
-                                                Monu</a></span>
-                                        <div class="item-date">
-                                            <span class="ad-pub">Published on: 10 Dec 2017</span><br>
-                                            <a href="#" class="link">More Ads</a>
-                                        </div>
+                                        <span class="user-name"><a class="hover-color" href="profile.html">{{ $carDetails->dealer['name'] }}</a></span>
+                     
                                     </div>
+                                   
                                     <div class="clearfix"></div>
                                 </div>
+                                <div class="category-list-icon">
+                                    <i class="green flaticon-mail-1"></i>
+                                    <div class="category-list-title">
+                                        <h5><a href="{{ $carDetails->dealer['email'] }}" data-toggle="modal" data-target=".price-quote">Contact Seller </a></h5>
+                                    </div>
+                                </div>
+                                <div class="category-list-icon">
+                                    <i class="purple flaticon-smartphone"></i>
+                                    <div class="category-list-title">
+                                        <h5>
+                                            <a href="tel:{{ $carDetails->dealer['phone'] }}" class="number" data-last="{{ $carDetails->dealer['phone'] }}">
+                                                +92<span>XXXXXXX</span>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    
+                                </div> 
                             </div>
-                            <div id="itemMap"></div>
 
                             <!-- Recent Ads -->
                             <div class="widget">
@@ -284,84 +195,32 @@
                                     <h4 class="panel-title"><a>Recent Ads</a></h4>
                                 </div>
                                 <div class="widget-content recent-ads">
-                                    <!-- Ads -->
-                                    <div class="recent-ads-list">
-                                        <div class="recent-ads-container">
-                                            <div class="recent-ads-list-image">
-                                                <a href="#" class="recent-ads-list-image-inner">
-                                                    <img src="images/posting/thumb-1.jpg" alt="">
-                                                </a><!-- /.recent-ads-list-image-inner -->
-                                            </div>
-                                            <!-- /.recent-ads-list-image -->
-                                            <div class="recent-ads-list-content">
-                                                <h3 class="recent-ads-list-title">
-                                                    <a href="#">2010 Audi A5 Auto Premium quattro MY10</a>
-                                                </h3>
-                                                <ul class="recent-ads-list-location">
-                                                    <li><a href="#">New York</a>,</li>
-                                                    <li><a href="#">Brooklyn</a></li>
-                                                </ul>
-                                                <div class="recent-ads-list-price">
-                                                    $ 17,000
+                                    @foreach ($recentCars as $car )                                        
+                                        <!-- Ads -->
+                                        <div class="recent-ads-list">
+                                            <div class="recent-ads-container">
+                                                <div class="recent-ads-list-image">
+                                                    <a href="/listingDetails/{{ $car->id }}" class="recent-ads-list-image-inner">
+                                                        <img src="{{ asset($car->image) }}" alt="">
+                                                    </a><!-- /.recent-ads-list-image-inner -->
                                                 </div>
-                                                <!-- /.recent-ads-list-price -->
-                                            </div>
-                                            <!-- /.recent-ads-list-content -->
-                                        </div>
-                                        <!-- /.recent-ads-container -->
-                                    </div>
-                                    <!-- Ads -->
-                                    <div class="recent-ads-list">
-                                        <div class="recent-ads-container">
-                                            <div class="recent-ads-list-image">
-                                                <a href="#" class="recent-ads-list-image-inner">
-                                                    <img src="images/posting/thumb-2.jpg" alt="">
-                                                </a><!-- /.recent-ads-list-image-inner -->
-                                            </div>
-                                            <!-- /.recent-ads-list-image -->
-                                            <div class="recent-ads-list-content">
-                                                <h3 class="recent-ads-list-title">
-                                                    <a href="#">Honda Civic 2017 Sports Edition With Turbo</a>
-                                                </h3>
-                                                <ul class="recent-ads-list-location">
-                                                    <li><a href="#">New York</a>,</li>
-                                                    <li><a href="#">Brooklyn</a></li>
-                                                </ul>
-                                                <div class="recent-ads-list-price">
-                                                    $ 66,000
+                                                <!-- /.recent-ads-list-image -->
+                                                <div class="recent-ads-list-content">
+                                                    <div class="recent-ads-list-price">
+                                                        <a href="/listingDetails/{{ $car->id }}"> {{$car->title}}</a>
+                                                    </div>
+                                                    <h3 class="recent-ads-list-title">
+                                                        <a href="/listingDetails/{{ $car->id }}">{{$car->description}}</a>
+                                                    </h3>
+                                                    
+                                                    <!-- /.recent-ads-list-price -->
                                                 </div>
-                                                <!-- /.recent-ads-list-price -->
+                                                <!-- /.recent-ads-list-content -->
                                             </div>
-                                            <!-- /.recent-ads-list-content -->
+                                            <!-- /.recent-ads-container -->
                                         </div>
-                                        <!-- /.recent-ads-container -->
-                                    </div>
-                                    <!-- Ads -->
-                                    <div class="recent-ads-list">
-                                        <div class="recent-ads-container">
-                                            <div class="recent-ads-list-image">
-                                                <a href="#" class="recent-ads-list-image-inner">
-                                                    <img src="images/posting/thumb-3.jpg" alt="">
-                                                </a><!-- /.recent-ads-list-image-inner -->
-                                            </div>
-                                            <!-- /.recent-ads-list-image -->
-                                            <div class="recent-ads-list-content">
-                                                <h3 class="recent-ads-list-title">
-                                                    <a href="#">Ford Mustang EcoBoost Premium Convertible</a>
-                                                </h3>
-                                                <ul class="recent-ads-list-location">
-                                                    <li><a href="#">New York</a>,</li>
-                                                    <li><a href="#">Brooklyn</a></li>
-                                                </ul>
-                                                <div class="recent-ads-list-price">
-                                                    $ 37,000
-                                                </div>
-                                                <!-- /.recent-ads-list-price -->
-                                            </div>
-                                            <!-- /.recent-ads-list-content -->
-                                        </div>
-                                        <!-- /.recent-ads-container -->
-                                    </div>
+                                    @endforeach
+                                
 
                                 </div>
                             </div>
@@ -383,15 +242,7 @@
                                                         <option>$55,000</option>
                                                     </select>
                                                 </li>
-                                                <li>
-                                                    <label>Interest rate</label>
-                                                    <select>
-                                                        <option>30%</option>
-                                                        <option>35%</option>
-                                                        <option>45%</option>
-                                                        <option>55%</option>
-                                                    </select>
-                                                </li>
+                                                
                                                 <li>
                                                     <label>Period (month</label>
                                                     <span class="price-slider-value"><span id="month-min"></span>
@@ -415,19 +266,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Saftey Tips  -->
-                            <div class="widget">
-                                <div class="widget-heading">
-                                    <h4 class="panel-title"><a>Safety tips for deal</a></h4>
-                                </div>
-                                <div class="widget-content saftey">
-                                    <ol>
-                                        <li>Use a safe location to meet seller</li>
-                                        <li>Avoid cash transactions</li>
-                                        <li>Beware of unrealistic offers</li>
-                                    </ol>
-                                </div>
+                           <!-- Dealer Authorization Tips -->
+                        <div class="widget">
+                            <div class="widget-heading">
+                                <h4 class="panel-title"><a>Tips for Verifying Car Dealers</a></h4>
                             </div>
+                            <div class="widget-content saftey">
+                                <ol>
+                                    <li>Ensure the dealer is registered with local authorities</li>
+                                    <li>Request and verify the dealer's business license</li>
+                                    <li>Check for dealer accreditation from industry associations</li>
+                                    <li>Read customer reviews and testimonials</li>
+                                    <li>Ask for references from previous customers</li>
+                                </ol>
+                            </div>
+                        </div>
+
                         </div>
                         <!-- Sidebar Widgets End -->
                     </div>
@@ -448,7 +302,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
                             class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Email for Price</h3>
+                    <h3 class="modal-title" id="lineModalLabel">Contact</h3>
                 </div>
                 <div class="modal-body">
                     <div class="recent-ads">
