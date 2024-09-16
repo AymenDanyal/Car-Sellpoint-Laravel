@@ -22,7 +22,7 @@
          industry is proident sunt in culpa officia deserunt mollit.
       </h5>
       <a class="ms-layer btn3 uppercase" style="left:120px; top: 390px;" data-type="text" data-delay="3500"
-         data-ease="easeOutExpo" data-duration="2000" data-effect="scale(1.5,1.6)">Search Cars</a>
+         data-ease="easeOutExpo" data-duration="2000" data-effect="scale(1.5,1.6)" href="{{ route('listing', ['brandId' => 1, 'bodyTypeId' =>0]) }}">Search Cars</a>
    </div>
    <!-- end of slide -->
    <!-- slide 2 -->
@@ -42,7 +42,7 @@
          typesetting<br>
          industry is proident sunt in culpa officia deserunt mollit.
       </h5>
-      <a class="ms-layer btn3 uppercase" style="left:120px; top: 390px;" data-type="text" data-delay="3500"
+      <a class="ms-layer btn3 uppercase" style="left:120px; top: 390px;" href="{{ route('listing', ['brandId' => 1, 'bodyTypeId' =>0]) }}" data-type="text" data-delay="3500"
          data-ease="easeOutExpo" data-duration="2000" data-effect="scale(1.5,1.6)"> View All Cars</a>
    </div>
    <!-- end of slide -->
@@ -63,7 +63,7 @@
          industry is proident sunt in culpa officia deserunt mollit.
       </h5>
       <a class="ms-layer btn3 uppercase" style="left:120px; top: 390px;" data-type="text" data-delay="3500"
-         data-ease="easeOutExpo" data-duration="2000" data-effect="scale(1.5,1.6)"> View All Cars</a>
+         data-ease="easeOutExpo" data-duration="2000" data-effect="scale(1.5,1.6)" href="{{ route('listing', ['brandId' => 1, 'bodyTypeId' =>0]) }}"> View All Cars</a>
    </div>
    <!-- slide 2 -->
    <!-- end of slide -->
@@ -85,22 +85,25 @@
                               <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
                                     <label>Brands</label>
-                                    <input type="text" id="brand" class="form-control search" placeholder="Type to search...">
-                                    <input name="brand_id" type="hidden" id="brand_id" value="">
+                                    <input type="text" id="brand" class="form-control search" placeholder="Type to search..." required>
+                                    <input name="brandId" type="hidden" id="brand_id" value="">
                                     <ul class="list-group suggestions"></ul>
                                  </div>
+                                 @error('brandId')
+                                 <span class="text-danger">Please select a brand</span>
+                                 @enderror
                               </div>
                               <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
                                      <label>Model</label>
-                                     <select class="form-control search" name="model_id" id="model" aria-label="Default select example">
+                                     <select class="form-control search" name="modelId" id="model" aria-label="Default select example">
                                      </select>
                                  </div>
                              </div>
                              <div class="col-md-4 col-sm-6 col-xs-12 no-padding">
                                  <div class="form-group">
                                      <label>Variant</label>
-                                     <select class="form-control search" name="variant_id" id="variant" aria-label="Default select example">
+                                     <select class="form-control search" name="variantId" id="variant" aria-label="Default select example" >
                                          
                                      </select>
                                  </div>
@@ -590,7 +593,7 @@
                <div class="client-brand-list">
                   @foreach ($brands as $brand )
                   <div class="sigle-clients-brand">
-                     <a href="#"><img src="{{ asset($brand->image) }}" alt=""></a>
+                     <a href="{{ route('listing', ['brandId' => $brand->id, 'bodyTypeId' =>0]) }}"><img src="{{ asset($brand->image) }}" alt=""></a>
                   </div>
                   @endforeach
 
@@ -641,7 +644,7 @@
 
                   var modelSelect = $('#model');
                   modelSelect.empty();
-                  modelSelect.append('<option selected>Type to search...</option>');
+                  modelSelect.append('<option value="" selected>Type to search...</option>');
                   $.each(data.models, function(index, model) {
                      modelSelect.append($('<option>', {
                            value: model.id,
@@ -652,7 +655,7 @@
                   // Populate variants
                   var variantSelect = $('#variant');
                   variantSelect.empty();
-                  variantSelect.append('<option selected>Type to search...</option>');
+                  variantSelect.append('<option value="" selected>Type to search...</option>');
                   $.each(data.variants, function(index, variant) {
                      variantSelect.append($('<option>', {
                            value: variant.id,

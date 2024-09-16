@@ -17,25 +17,6 @@ class HomeController extends Controller
     public function index()
      {
 
-
-        
-        $j = 1;
-        $k = 1;
-        $l = 1;
-        $m = 1;
-        
-        // for($i=3;$i<=94;$i++)
-        // {
-        //     for($j=1;$j<=6;$j++)
-        //     {
-        //         $variant = new Images();
-        //         $variant->car_id = $i;
-        //         $variant->url = '/images/single-page/'.$j.'.jpg';
-        //         $variant->save();
-        //     }
-        // }
-
-
         $featured = Cars::where('is_featured', 1)->limit(6)->get();
         $brands = Brands::limit(10)->get();
 
@@ -78,46 +59,34 @@ class HomeController extends Controller
     
     public function searchForm(Request $request)
     {
-        
+        //dd($request->all());
         $request->validate([
-            'brand_id' => 'nullable',
-            'model_id' => 'nullable',
-            'variant_id' => 'nullable',
+            'brandId' => 'nullable',
+            'modelId' => 'nullable',
+            'variantId' => 'nullable',
         ]);
-    
-        $query = CarValues::query();
-    
-        if ($request->filled('brand_id')) {
-            $query->where('brand_id', $request->brand_id);
-        }
-    
-        if ($request->filled('model_id')) {
-            $query->where('model_id', $request->model_id);
-        }
-    
-        if ($request->filled('variant_id')) {
-            $query->where('variant_id', $request->variant_id);
-        }
-    
-        $carValues = $query->limit(10)->get(); 
+
+            $brandId = $request->input('brandId');
+            $modelId = $request->input('modelId');
+            $variantId = $request->input('variantId');
+            //dd($brandId, $modelId, $variantId);
+
+            $models = Models::where('brand_id', $brandId)
+            ->with(['variants' => function($query) {
+                $query->limit(10); 
+            }])
+            ->limit(10)
+            ->get(['id', 'name','brand_id']);
+
+           // dd($models);
         
-        $cars= Cars::whereIn('id', $carValues->pluck('car_id'))->get();
-
-
-        $brandId=0; 
-        $bodyTypeId=0;
         $bodyTypes = BodyType::limit(10)->get();
         $recentCars = Cars::orderBy('id', 'DESC')->take(5)->get();
-        $models = Models::where('brand_id', $brandId)
-                        ->with(['variants' => function($query) {
-                            $query->limit(10); 
-                        }])
-                        ->limit(10)
-                        ->get(['id', 'name','brand_id']);
+       
        
 
                         
-        return view('pages.listing', compact('models', 'bodyTypes', 'brandId', 'bodyTypeId','recentCars','cars'));
+        return view('pages.listing', compact('models', 'bodyTypes','recentCars', 'brandId','modelId', 'variantId'));
     }
 }
 
@@ -126,6 +95,22 @@ class HomeController extends Controller
 
 
 
+    
+// $j = 1;
+// $k = 1;
+// $l = 1;
+// $m = 1;
+
+// for($i=3;$i<=94;$i++)
+// {
+//     for($j=1;$j<=6;$j++)
+//     {
+//         $variant = new Images();
+//         $variant->car_id = $i;
+//         $variant->url = '/images/single-page/'.$j.'.jpg';
+//         $variant->save();
+//     }
+// }
 
 
 

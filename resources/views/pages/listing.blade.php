@@ -9,42 +9,31 @@
     <!-- =-=-=-=-=-=-= Breadcrumb =-=-=-=-=-=-= -->
 
     <div class="page-header-area-2 gray">
-
+        
         <div class="container">
-
+              {{-- <div class="header-page d-flex justify-content-center">
+                <img src="{{ asset('/images/brands/6.png') }}" alt="Brand 6" class="mx-2">
+                <img src="{{ asset('/images/brands/2.png') }}" alt="Brand 2" class="mx-2">
+                <img src="{{ asset('/images/brands/3.png') }}" alt="Brand 3" class="mx-2">
+                <img src="{{ asset('/images/brands/5.png') }}" alt="Brand 5" class="mx-2">
+                <img src="{{ asset('/images/brands/4.png') }}" alt="Brand 4" class="mx-2">
+            </div> --}}
             <div class="row">
-
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
                     <div class="small-breadcrumb">
-
-                        <div class=" breadcrumb-link">
-
+                        <div class="breadcrumb-link">
                             <ul>
-
                                 <li><a href="index.html">Home Page</a></li>
-
                                 <li><a class="active" href="#">Listing</a></li>
-
                             </ul>
-
                         </div>
-
-                        <div class="header-page">
-
-                            <h1>Toyota</h1>
-
-                        </div>
-
                     </div>
-
                 </div>
-
             </div>
-
+          
         </div>
-
     </div>
+    
 
     <!-- =-=-=-=-=-=-= Breadcrumb End =-=-=-=-=-=-= -->
 
@@ -94,21 +83,7 @@
 
                                         <div class="header-listing">
 
-                                            <h6>Sort by :</h6>
 
-                                            <div class="custom-select-box">
-
-                                                <select name="order" class="custom-select">
-
-                                                    <option value="0">Most popular</option>
-
-                                                    <option value="1">The latest</option>
-
-                                                    <option value="2">The best rating</option>
-
-                                                </select>
-
-                                            </div>
 
                                         </div>
 
@@ -193,16 +168,18 @@
                             <div class="clearfix"></div>
 
                             <!-- Pagination -->
-
                             <div class="text-center margin-top-30">
-
                                 <ul class="pagination ">
+
+                                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li class="active"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
                                 </ul>
-
                             </div>
-
                             <!-- Pagination End -->
-
                         </div>
 
                         <!-- Row End -->
@@ -230,13 +207,22 @@
                                     <!-- Heading -->
                                     <div class="SelectedFilter">
                                         <div class="modals">
+                                            <!-- Search -->
+                                            <p class="customSelectedFilter">Search:</p>
+                                            <div class="search-widget mt-5" style="margin-top: 9px;">
+
+                                                <input id="searchInput" placeholder="Search.." type="text">
+
+                                                <button type="submit" id="search"><i class="fa fa-search"></i></button>
+
+                                            </div>
                                             <p class="customSelectedFilter">Selected Filters:</p>
                                             <ul class="selectedModels" id="selectedModels"></ul>
                                             <ul class="selectedModels" id="selectedTransmition">
                                                 <li class="customListItem" id="customTransition"> Automatic </li>
                                             </ul>
                                             <ul class="selectedModels" id="bodyType">
-                                                <li class="customListItem" id="customType"> Sedan </li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -266,16 +252,6 @@
 
                                         <div class="panel-body">
 
-                                            <!-- Search -->
-
-                                            <div class="search-widget">
-
-                                                <input id="searchInput" placeholder="Search by Car Name" type="text">
-
-                                                <button type="submit" id="search"><i class="fa fa-search"></i></button>
-
-                                            </div>
-
                                             <!-- Models List -->
 
                                             <div class="skin-minimal">
@@ -289,7 +265,8 @@
                                                             data-id="{{ $model->id }}" data-value="{{ $model->name }}"
                                                             id="model-checkbox-{{ $model->id }}">
 
-                                                        <label for="model-checkbox-{{ $model->id }}">{{ $model->name}}</label>
+                                                        <label for="model-checkbox-{{ $model->id }}">{{
+                                                            $model->brand->name }} {{ $model->name }} </label>
                                                     </li>
 
                                                     @endforeach
@@ -478,7 +455,7 @@
 
                                                     <div class="recent-ads-list-image">
 
-                                                        <a href="#" class="recent-ads-list-image-inner">
+                                                        <a href="{{ route('listingDetails', $recent->id) }}" class="recent-ads-list-image-inner">
 
                                                             <img src="{{ asset($recent->image) }}" alt="">
 
@@ -492,15 +469,15 @@
 
                                                         <h3 class="recent-ads-list-title">
 
-                                                            <a href="#">{{ $recent->title }} </a>
+                                                            <a href="{{ route('listingDetails', $recent->id) }}">{{ $recent->title }} </a>
 
                                                         </h3>
 
                                                         <ul class="recent-ads-list-location">
 
-                                                            <li><a href="#">{{ $recent->description }}</a>,</li>
+                                                            <li><a href="{{ route('listingDetails', $recent->id) }}">{{ $recent->description }}</a>,</li>
 
-                                                            <li><a href="#">{{ $recent->year }}</a></li>
+                                                            <li><a href="{{ route('listingDetails', $recent->id) }}">{{ $recent->year }}</a></li>
 
                                                         </ul>
 
@@ -704,14 +681,19 @@
 
 
 <script>
-    var modelId = null;
-    var brandId = {{ $brandId }};
-    var trans = null;
-    var bodyType = {{ $bodyTypeId }};;
-    var search = null;
-    
-    //console.log(modelId,trans,bodyType);
     $(document).ready(function() {
+        var modelId = {!! json_encode($modelId ?? null) !!};
+        var brandId = {!! json_encode($brandId ?? null) !!};
+        var variantId = {!! json_encode($variantId ?? null) !!};
+
+        console.log(brandId,variantId,modelId,);
+        var trans = null;
+        var bodyTypeId =  {{ isset($bodyTypeId) ? $bodyTypeId : 'null' }};
+        var search = null;
+        var page = null;
+
+        // console.log(brandId,variantId,modelId,bodyType);
+
         function getProducts(modelIds,trans,bodyType,price) {
             var modelIds = []; 
                 $('.model-checkbox:checked').each(function() {
@@ -727,9 +709,13 @@
                         "_token": "{{ csrf_token() }}",
                         "brandId":brandId,
                         "modelIds":modelIds,
+                        "modelId":modelId,
+                        "variantId":variantId,
                         "trans": trans,
                         "bodyType":bodyType,
+                        "bodyTypeId":bodyTypeId,
                         "search":search,
+                        "page":page,
                         },
             
                     success: function (response) {
@@ -737,6 +723,7 @@
                         $('.posts-masonry').empty();
                         
                         createGrid(response);
+                        createPagination(response);
                     
                     },
                     error: function (xhr, status, error) {
@@ -749,7 +736,7 @@
 
         function createGrid(response) {
             products = response.data;
-           //console.log(products.data);
+            //console.log(response);
             products.forEach(product => {
                 var grid = `
                     <div class="col-md-6 col-xs-12 col-sm-6">
@@ -763,6 +750,7 @@
                                 <!-- View Details --><a href="{{ route('listingDetails', ['carId' =>'__carId__']) }}" class="view-details">View Details</a>
                                 <!-- Additional Info -->
                                 <div class="additional-information">
+                                    <p>Brand : ${product.brand.name}</p>
                                     <p>Transmission : ${product.transmission}</p>
                                     <p>Engine Capacity : ${product.engineCapacity}</p>
                                     <p>Engine Type : ${product.engineType}</p>
@@ -783,6 +771,7 @@
                             <!-- Addition Info -->
                             <div class="ad-info">
                                 <ul>
+                                     <li><i class="flaticon-car-2"></i>${product.brand.name}</li>
                                     <li><i class="flaticon-fuel-1"></i>${product.engineType}</li>
                                     <li><i class="flaticon-engine-2"></i>${product.engineCapacity}cc</li>
                                 </ul>
@@ -794,10 +783,43 @@
                 
                 $(grid).appendTo('.posts-masonry');
             });
-
-
+            
         }
-       
+
+        function createPagination(data) {
+            let paginationUl = $('ul.pagination');
+            paginationUl.empty();
+
+            if (data.last_page > 1) {
+                // Previous button
+                if (data.current_page > 1) {
+                    paginationUl.append('<li><a href="#" onclick="changePage(' + (data.current_page - 1) + ')"><i class="fa fa-chevron-left"></i></a></li>');
+                }
+
+                // Page numbers
+                for (let i = 1; i <= data.last_page; i++) {
+                    if (i === data.current_page) {
+                        paginationUl.append('<li class="active"><a href="#">' + i + '</a></li>');
+                    } else {
+                        paginationUl.append('<li><a href="#" class="page-link" data-page="' + i + '">' + i + '</a></li>');
+                    }
+                }
+
+                // Next button
+                if (data.current_page < data.last_page) {
+                    paginationUl.append('<li><a href="#" class="page-link" data-page="' + (data.current_page + 1) + '"><i class="fa fa-chevron-right"></i></a></li>');
+                }
+            }
+        }
+        $(document).on('click', '.page-link', function() {
+            page = $(this).data('page');
+            console.log(page);
+            getProducts();
+        });
+        if(modelId){
+               console.log('#model-checkbox-' + modelId);
+             $('#model-checkbox-' + modelId).iCheck('toggle');
+            }
 
         $('.inputBox').on('ifChanged', function(event){
              search = $('#search').val();
@@ -828,13 +850,19 @@
            
         });
 
-        $('#searchInput').on('change', function(event){
+        $('#search').on('click', function(event){
             search = $('#searchInput').val();
-            // console.log(search);
-        });
-        if (brandId !== 0 || bodyType !== 0) {
+            bodyTypeId=null;
+            variantId=null;
+            modelId=null;
+            brandId=null;
             getProducts();
-        }
+            console.log(search);
+        });
+        
+          
+        getProducts();
+            
         });
 
 

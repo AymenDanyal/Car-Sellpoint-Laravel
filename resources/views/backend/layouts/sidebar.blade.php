@@ -29,22 +29,31 @@
   <!-- Nav Item - Pages Collapse Menu -->
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link" href="">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Media Manager</span></a>
+    <a class="nav-link collapsed" href="{{ route('car.index') }}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+      aria-controls="collapseOne">
+      <i class="fas fa-image"></i>
+      <span>Cars</span>
+    </a>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Cars Options:</h6>
+        <a class="collapse-item" href="{{ route('car.index') }}">Cars</a>
+        <a class="collapse-item" href="{{ route('car.create') }}">Add Car</a>
+      </div>
+    </div>
   </li>
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
       aria-controls="collapseTwo">
       <i class="fas fa-image"></i>
-      <span>Banners</span>
+      <span>Categories</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Banner Options:</h6>
-        <a class="collapse-item" href="">Banners</a>
-        <a class="collapse-item" href="">Add Banners</a>
+        <h6 class="collapse-header">Categories Options:</h6>
+        <a class="collapse-item" href="">Categories</a>
+        <a class="collapse-item" href="">Add Category</a>
       </div>
     </div>
   </li>

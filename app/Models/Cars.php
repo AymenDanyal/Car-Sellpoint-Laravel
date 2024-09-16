@@ -11,26 +11,27 @@ use App\Models\Dealers;
 class Cars extends Model
 {
     use HasFactory;
-     
-    protected $table="cars";
 
-    protected $fillable=
+    protected $table = "cars";
+
+    protected $fillable =
     [
-    'id',
-    'name',
-    'brand_id ',
-    'dealer_id',
-    'transmission',
-    'image',
-    'engineCapacity',
-    'engineType',
-    'title',
-    'body_type',
-    'price',
-    'year',
-    'description',
-    'created_at',
-    'updated_at',
+        'id',
+        'name',
+        'brand_id ',
+        'dealer_id',
+        'transmission',
+        'image',
+        'video_url',
+        'engineCapacity',
+        'engineType',
+        'title',
+        'body_type',
+        'price',
+        'year',
+        'description',
+        'created_at',
+        'updated_at',
     ];
     public function brand()
     {
@@ -44,5 +45,8 @@ class Cars extends Model
     {
         return $this->belongsTo(Dealers::class, 'dealer_id');
     }
-    
+
+    public static function getAllCars(){
+        return Cars::with(['images','dealer','brand',])->orderBy('id','desc')->paginate(10);
+    }
 }

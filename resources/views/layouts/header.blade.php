@@ -35,7 +35,7 @@
                    <!-- menu logo -->
                    <ul class="menu-logo">
                       <li>
-                         <a href="index.html"><img src="{{asset('images/hotspot-logo.png')}}" alt="logo"> </a>
+                         <a href="{{ route('home') }}"><img src="{{asset('images/hotspot-logo.png')}}" alt="logo"> </a>
                       </li>
                    </ul>
                    <!-- menu links -->
